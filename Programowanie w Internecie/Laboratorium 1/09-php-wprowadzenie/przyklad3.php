@@ -20,7 +20,5 @@
     <?php foreach($kolory as $klucz ): ?>
 	<li style='color:<?=$klucz ?>;'><?=$klucz ?> </li>
 	<?php endforeach; ?></ul>
-
-
 </body>
 </html>

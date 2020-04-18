@@ -1,23 +1,39 @@
 <?php
 
 session_start();
+$logowanie = 1;
 
 if (isset($_POST['zaloguj'])) {
-	$pdo = new PDO('mysql:host=localhost;dbname=test', 'root', '');
+	//$logowanie++;
 
-	$stmt = $pdo->prepare("SELECT * FROM uzytkownicy WHERE login = :login AND haslo = :haslo");
-	$stmt->execute(['login' => $_POST['login'], 'haslo' => $_POST['haslo']]);
-	$wynik = $stmt->fetch();
+	$pdo = new PDO('mysql:host=localhost;dbname=test', 'root', '');
 	
-	if ($wynik) {
-		$_SESSION['zalogowany'] = 'tak';
-		$_SESSION['id'] = $wynik['id'];
-		header("Location: index.php");
-		exit();
-	} else {
-		$komunikat = "Wprowadzono zły login lub hasło.";
+	$stmt = $pdo->prepare("SELECT * FROM uzytkownicy WHERE login = :login AND haslo = :haslo");
+	$haslo = password_hash("test", PASSWORD_BCRYPT);
+	//echo "haslo hash" . $haslo;
+	$haslo_verify = password_verify( 'test', $haslo);
+	//echo "haslo norma " . $haslo_verify;
+	if ('haslo' == $haslo_verify)
+	{
+		$stmt->execute(['login' => $_POST['login'], 'haslo' => $_POST['haslo']]);
+		$wynik = $stmt->fetch();
+	
+		if ($wynik) {
+			$_SESSION['zalogowany'] = 'tak';
+			$_SESSION['id'] = $wynik['id'];
+			header("Location: index.php");
+			exit();
+		} else {
+			$komunikat = "Wprowadzono zły login lub hasło.";
+			$logowanie =+ $logowanie;
+			echo $logowanie;
+
+			//echo " Złe haslo";
+			}
+	
 	}
-}
+	
+} 
 ?>
 <!DOCTYPE html>
 <html>

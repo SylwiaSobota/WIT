@@ -1,10 +1,20 @@
 <?php
 
 session_start();
-$logowanie = 1;
-
+if (isset($_SESSION['log']))
+{
+	$_SESSION['log']++;
+	if ($_SESSION['log']>3)
+		{
+			echo "Zablokowałeś konto :( Przejdź <a href='logowanie.php'>tutaj</a> zeby to zmienić ";
+			session_destroy();
+			exit;
+			
+		}
+} else {
+	$_SESSION['log'] = 1;
+} 
 if (isset($_POST['zaloguj'])) {
-	//$logowanie++;
 
 	$pdo = new PDO('mysql:host=localhost;dbname=test', 'root', '');
 	
@@ -24,11 +34,8 @@ if (isset($_POST['zaloguj'])) {
 			header("Location: index.php");
 			exit();
 		} else {
+			
 			$komunikat = "Wprowadzono zły login lub hasło.";
-			$logowanie =+ $logowanie;
-			echo $logowanie;
-
-			//echo " Złe haslo";
 			}
 	
 	}
@@ -44,6 +51,7 @@ if (isset($_POST['zaloguj'])) {
     <body>
 		<?php if(!empty($komunikat)): ?>
 			<p style="font-weight: bold; color: red;"><?=$komunikat ?></p>
+		
 		<?php endif; ?>
 		
         <form method="post" action="">

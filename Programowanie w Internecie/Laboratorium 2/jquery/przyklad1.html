@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Przykład 1</title>
+	<meta charset="utf-8">
+
+	<script type="text/javascript">
+		function zmienKolorElementu() {
+			$("#prostokat").css("backgroundColor", "red");
+		}
+	</script>
+</head>
+
+<body>
+	<h2>Przykład 1</h2>
+	<h3>Dostęp do elementów poprzez ID</h3>
+
+	<div style="width: 150px; height: 100px; background-color: green;" id="prostokat"></div>
+
+	<p>
+		<a href="#" onclick="zmienKolorElementu()">zmień kolor</a>
+	</p>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	 crossorigin="anonymous"></script>
+</body>
+
+</html>

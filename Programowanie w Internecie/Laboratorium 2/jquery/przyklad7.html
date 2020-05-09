@@ -1,0 +1,44 @@
+<html>
+
+<head>
+	<title>Przykład 7</title>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+
+		function wyslijDane() {
+			$.post(
+				"przyklad7.php",
+				{
+					pole: $("#pole").val()
+				},
+				function (resp) {
+					$("#wynik").append(resp);
+				}
+			);
+		}
+
+	</script>
+</head>
+
+<body>
+
+	<h2>Przykład 7</h2>
+
+	<h3>Wywołanie AJAX - wysłanie danych z pola formularza do serwera</h3>
+
+	<p>
+		<input type="text" name="pole" id="pole" />
+		<input type="button" name="przycisk" id="przycisk" value="Wyślij dane" />
+	</p>
+
+	<p id="wynik"></p>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	 crossorigin="anonymous"></script>
+	<script>
+		$(function () {
+			$("#przycisk").click(wyslijDane);
+		});
+	</script>
+</body>
+
+</html>

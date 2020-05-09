@@ -1,0 +1,136 @@
+<html>
+
+<head>
+	<title>Przykład 8</title>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+		
+		function pobierzDaneSamochodow() {
+			$.post(
+				"przyklad8.php",
+				function (resp) {
+					//console.log(resp);
+					var tabela = "<table>";
+					tabela += "<tr><th>Id</th><th>Marka</th><th>Model</th><th>Rok</th><th></th></tr>";
+
+					$.each(resp, function (i, elem) {
+						//console.log(elem.id);
+						tabela += "<tr>";
+						tabela += "<td>" + elem.id + "</td>";
+						tabela += "<td>" + elem.marka + "</td>";
+						tabela += "<td>" + elem.model + "</td>";
+						tabela += "<td>" + elem.rok + "</td>";
+						tabela += "<td><a href=# id='szczegoly' name='szczegoly' onclick='szczegoly(" + elem.id + ")'>szczegóły</a></td>";
+						tabela += "</tr>";
+					});
+
+					tabela += "</table>";
+					$("#wynik").html(tabela);
+				}, "json"
+			);
+		}; 
+	</script>
+	<script>
+		function szczegoly(id) {
+			$.post(
+			"przyklad8.php",
+			function (resp) {
+				$.each(resp, function (i, elem) {
+					if (elem.id == id)
+						{ console.log(elem.id);
+						 console.log(elem);
+						 document.write("Szczegóły samochodu: <br>Id: " + elem.id +"<br>");
+						 document.write("Marka: " + elem.marka + "<br>");
+						 document.write("Model: " +elem.model+ "<br>");
+						 document.write("Rok: " +elem.rok+ "<br>");
+						 document.write("Pojemność: " +elem.pojemnosc+ "<br>");
+						 document.write("Typ silnika: " +elem.typ_silnika+ "<br>");
+						 document.write("Liczba poduszek: " +elem.liczba_poduszek+ "<br>");
+						 document.write("ABS: " +elem.abs+ "<br>");
+						 document.write("ESP: " +elem.esp+ "<br>");
+						 document.write("<a href='przyklad8.html'>Powrót</a>");
+						} } ) },  "json");}
+						
+	 
+		
+	</script>
+	<!--
+	<script type="text/javascript">
+		//Dodanie nowego modelu samochodu za pomocą ajax
+		$(document).ready(function(){
+			$("#form").submit(function(){
+				$.ajax({
+					url: "szzegoly.php", 
+        			data: $("#form").serialize(), 
+        			type: "POST", 
+					dataType: 'json',
+					success: function (e) {
+					console.log(JSON.stringify(e));},
+        		error:function(e){
+            		console.log(JSON.stringify(e));}
+    				}); 
+    			return false;
+				});
+		});
+
+		
+	</script>
+	-->
+</head>
+
+<body>
+
+	<h2>Przykład 8</h2>
+
+	<h3>Wywołanie AJAX - pobierania danych w formacie JSON</h3>
+	 
+		<!--<input type="button" name="dodaj" id="dodaj" onclick="dodaj()" value="Dodaj samochód" /> -->
+		<form id='form' method='POST' action="">
+			Marka: <input type='text' name="marka" id="marka" /><br>
+			Model: <input type='text' name="model" id="model" /><br>
+			Rok: <input type='text' name="rok" id="rok" /><br>
+			<input type="submit" name='dodaj' id='dodaj' value='dodaj samochód' />
+		</form>	
+	
+	<p>
+		<input type="button" name="przycisk" id="przycisk" value="Pobierz dane samochodów" />
+	</p>
+
+	<div id="wynik"></div>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	 crossorigin="anonymous"></script>
+	 <script>
+	 	$(function () {
+			$("#przycisk").click(pobierzDaneSamochodow);
+		});
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("#form").submit(function() {
+                	var marka= $("#marka").val();
+                	var model= $("#model").val();
+                	var rok= $("#rok").val();
+
+					$.ajax({
+						type: "POST",
+                    	url: "szczegoly.php",
+                    	data: {
+							marka: marka,
+							model: model,
+							rok: rok,
+						},
+                    	success: function(data) {
+							console.log("sucess");
+                    	},
+						error:function(data) {
+							console.log("nie sukces");
+						}
+                	});
+            	});
+			});
+		
+	</script>
+</body>
+
+</html>

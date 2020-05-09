@@ -1,0 +1,45 @@
+<html>
+
+<head>
+	<title>Przykład 6</title>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+
+		function pobierzDate() {
+			//$("#przycisk").css("backgroundColor", "red");
+
+			$.get(
+				"przyklad6.php",
+				function (resp) {
+					$("#wynik").html(resp);
+					//$("#przycisk").css("backgroundColor", "green");
+				}
+			);
+		}
+
+	</script>
+</head>
+
+<body>
+
+	<h2>Przykład 6</h2>
+
+	<h3>Wywołanie AJAX - pobranie daty z serwera</h3>
+
+	<p>
+		<input type="button" name="przycisk" id="przycisk" value="pobierz datę" style="background-color: white; border: 1px solid black"
+		/>
+	</p>
+
+	<p id="wynik"></p>
+	
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	 crossorigin="anonymous"></script>
+	 <script>
+	 $(function() {
+		$("#przycisk").click(pobierzDate);
+	});
+	 </script>
+</body>
+
+</html>

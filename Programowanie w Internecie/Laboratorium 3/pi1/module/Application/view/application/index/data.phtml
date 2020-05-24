@@ -1,0 +1,41 @@
+<h1>Bie¿¹ca data</h1>
+<?=$this->dzisiaj // dostÄ™p do zmiennej widoku z $this ?>
+
+<h1>Dni tygodnia</h1>
+
+<ul>
+<?php foreach ($dni_tygodnia as $nr => $dzien): // dostÄ™p do zmiennej widoku bezpoÅ›rednio ?>
+	<li>
+		<?=$nr+1 ?>:
+		<strong><?=$dzien ?></strong>
+	</li>
+<?php endforeach; ?>
+</ul>
+
+<h1>Miesi¹ce</h1>
+
+<ul>
+	<?php foreach ($miesiace as $kolor => $miesiac): ?>
+	<li>
+	<?=$kolor ?> - <?=$miesiac?>
+	</li> 
+	<?php endforeach; ?>
+</ul>
+
+<h1> Liczby</h1>
+<h2>Parzyste</h2>
+<ul>
+	<?php foreach ($tablicaParzyste as $liczba):?>
+	<li>
+		<?=$liczba?>
+	</li>
+	<?php endforeach;?>
+</ul>
+<h2>Nieparzyste</h2>
+<ul>
+<?php foreach ($tablicaNieparzyste as $liczba):?>
+	<li>
+		<?=$liczba?>
+	</li>
+	<?php endforeach;?>
+</ul>

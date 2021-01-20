@@ -1,0 +1,47 @@
+<h1>
+    Lista nieruchomości
+    <small><a href="<?= $this->url('nieruchomosci/default', ['action' => 'dodaj']) ?>">dodaj</a></small>
+</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Lp</th>
+            <th>Typ oferty</th>
+            <th>Miasto</th>
+            <th>Cena</th>
+            <th>Cena m2</th>
+            <th>Powierzchnia</th>
+            <th>Piętro</th>
+            <th>Rok budowy</th>
+            <th>Komunikacja</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (empty($mieszkania)): ?>
+            <tr>
+                <td colspan="10" class="text-center text-muted">Brak danych</td>
+            </tr>
+        <?php else: ?>
+            <?php foreach ($mieszkania as $i => $m): ?>
+                <tr>
+                    <td><?= $i + 1 ?></td>
+                    <td><?= $m->getNieruchomosc()->getTypOferty() ?></td>
+                    <td><?= $m->getNieruchomosc()->getMiasto()->getNazwa() ?></td>
+                    <td><?= $m->getNieruchomosc()->getCena() ?></td>
+                    <td><?= $m->getNieruchomosc()->getCenaM2() ?></td>
+                    <td><?= $m->getNieruchomosc()->getPowierzchnia() ?></td>
+                    <td><?= $m->getPietro() ?>/<?= $m->getLiczbaPieter() ?></td>
+                    <td><?= $m->getRokBudowy() ?></td>
+                    <td><?= $m->getNieruchomosc()->pobierzKomunikacje() ?></td>
+                    <td>
+                        <a href="<?= $this->url('nieruchomosci/default', ['action' => 'szczegoly', 'id' => $m->getId()]) ?>"><i class="fas fa-folder-open"></i></a>
+                        <a href="<?= $this->url('nieruchomosci/default', ['action' => 'edytuj', 'id' => $m->getId()]) ?>"><i class="fas fa-edit"></i></a>
+                        <a href="<?= $this->url('nieruchomosci/default', ['action' => 'usun', 'id' => $m->getId()]) ?>"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </tbody>
+</table>
